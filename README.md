@@ -1,5 +1,4 @@
 # sort
-sort algorithms
 [Sorting Algorithm Animations](https://www.toptal.com/developers/sorting-algorithms)
 
 
@@ -101,5 +100,19 @@ The time complexity if O(n^2), space complexity is O(n)
 
 
 ## Heap Sort
+
+**mapping the array to a binary tree**
+
+### Step
+
+* Build a Max Heap. Compare the element with its parent. If the element is 
+bigger than parent, exchange it with its parent. Repeat this until the last element is reached
+* Max Heaplify: after removing the last element, re-heaplify the heap. Specifically, 
+exchange the first element with the last element, then treat the heap with length n-1. 
+Then we again max heaplify the heap.
+* Repeat step 2, until all the roots are removed.
+
+
+### Implementation of Heap Sort
 
 
