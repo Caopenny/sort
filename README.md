@@ -92,6 +92,41 @@ The time complexity if O(n^2), space complexity is O(n)
 
 
 ## Shell Sort
+Shell sort is an improvement over insertin sort. It compares the element 
+separated by a gap of several positions. A data element is srted with multiple passes and with each pass gap value
+reduces.
+### Steps
+* Assign gap value as half the length of the array
+* Compare element present at a difference of gap value.
+* Sort them and reduce the gap value to half and repeat.
+
+
+### Implementation
+
+
+```cpp
+
+void shell_sort(vector<int> & num, int len){
+    for(int i = len/2; i >0; i=i/2){
+        for (int j =i; j<len; j++){
+            for (int k=j-i; k>=0;k--){
+                if(num[k+i]> num[k]){
+                    break;
+                }
+                else {
+                    int temp = num[k+i];
+                    num[k+i]=num[k];
+                    num[k]=temp;
+                }
+            }
+        }
+    }
+}
+
+
+
+```
+
 
 
 ## Merge Sort
@@ -159,6 +194,34 @@ void merge_array(vector<int>& num, int low, int high, int mid){
 ```
 
 ## Quick Sort
+
+### Implementation of Quick Sort
+
+```cpp
+void quick_sort(vector<int> & num, int low, int high){
+
+    if (low>=high) return;
+    int key = num[low];
+    int lp = low;
+    int rp = high;
+    while (lp<rp){
+        while (num[rp]>=key && rp > lp) rp--;
+        while (num[lp]<= key && lp < rp) lp++;
+        int temp =num[rp];
+        num[rp]=num[lp];
+        num[lp]=temp;
+
+    }
+    int temp =num[low];
+    num[low]=num[lp];
+    num[lp]=temp;
+    quick_sort( num, low, lp);
+    quick_sort(num,  lp+1, high);
+
+
+}
+
+```
 
 
 ## Heap Sort
