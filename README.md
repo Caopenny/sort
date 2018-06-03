@@ -95,6 +95,68 @@ The time complexity if O(n^2), space complexity is O(n)
 
 
 ## Merge Sort
+Thought: Divide and Conquer. This algorithm split a big array into smaller ones, than put them together
+### Step
+
+* Split the unsorted array into small array with only one element. Then we compare two array,
+merge the n arrays into n/2 arrays
+* Repeat step one to get n/4, n/8, ... arrays, until the final array is sorted
+
+### Implementation of Merge Sort
+```cpp
+void merge_sort(vector<int> & num, int low, int high){
+
+    if(low>=high) return ;
+
+
+    int mid=(low+high)/2;
+    merge_sort(num, low, mid);
+    merge_sort(num, mid+1, high);
+    merge_array(num, low, high, mid);
+}
+void merge_array(vector<int>& num, int low, int high, int mid){
+
+    int l_index=low;//index of the left array
+    int r_index = mid+1;//index of the right array
+    int k=low;//index of num
+
+
+
+    int left[mid-low+1];
+    int right [high-mid];
+    for(int i =0; i< mid-low+1;i++)left[i]=num[low+i];
+
+    for (int i=0; i<high-mid;i++){ right[i]=num[mid+1+i];}
+
+
+    while ((l_index< mid +1 )&&(r_index<high +1 )){
+        if(left[l_index-low]<right[r_index-mid-1]) {
+            num[k]=left[l_index-low];
+            l_index++;k++;
+        }
+        else{
+            num[k]=right[r_index-mid-1];
+            r_index++;k++;
+        }
+    }
+
+
+    while (l_index<mid+1){
+        num[k]=left[l_index-low];
+        l_index++;k++;
+
+    }
+    while (r_index<high + 1){
+        num[k]=right[r_index-mid-1];
+        r_index++;k++;
+
+    }
+
+
+}
+
+/*我这个实现真是又臭又长【捂脸】*/
+```
 
 ## Quick Sort
 
@@ -115,4 +177,50 @@ Then we again max heaplify the heap.
 
 ### Implementation of Heap Sort
 
+```cpp
+
+void heap_sort(vector<int> &num){
+    int n =num.size();
+
+    // Build Max Heap
+    for(int i =n/2-1; i>=0;i--){
+        max_heapify(num, i,num.size()-1);}
+    
+    for (int  i = n-1; i>0;i--){
+        int temp = num[i];
+        num[i] = num[0];
+        num[0] = temp;
+        max_heapify(num, 0,i-1);
+    }
+}
+
+//
+void max_heapify(vector<int> &num, int beg, int end){
+    int curr = beg;
+    int child = curr * 2 + 1; //the left child of root curr
+
+    while (child <= end){
+        if (child + 1 <= end && num[child]< num[child +1])
+        {
+            child ++;
+        }
+        if (num[curr]<num[child])
+        {
+            //if the current index does not contain a bigger value than its child, swap
+            int temp = num[curr];
+            num[curr]=num[child];
+            num[child]=temp;
+
+            //chang index
+            curr=child;
+            child = curr * 2 +1;
+        }
+        else {
+            break;
+        }
+    }
+
+}
+
+```
 
